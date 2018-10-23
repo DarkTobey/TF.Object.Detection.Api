@@ -11,3 +11,5 @@ data/eval/*.png
 data/test/*.jpg
 data/test/*.png
 data/test/*.mp4
+
+.vscode
