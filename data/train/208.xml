@@ -1,0 +1,26 @@
+<annotation>
+	<folder>role1</folder>
+	<filename>208.png</filename>
+	<path>E:\Work\DNF\role1\208.png</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>1028</width>
+		<height>796</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>role1</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>186</xmin>
+			<ymin>374</ymin>
+			<xmax>219</xmax>
+			<ymax>407</ymax>
+		</bndbox>
+	</object>
+</annotation>

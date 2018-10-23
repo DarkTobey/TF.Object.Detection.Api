@@ -1,0 +1,4 @@
+
+查看学习结果
+tensorboard --logdir=D:/Tools/Train/dnf/output
+http://localhost:6006

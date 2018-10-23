@@ -1,0 +1,13 @@
+output*/
+
+data/*.record
+
+data/train/*.jpg
+data/train/*.png
+
+data/eval/*.jpg
+data/eval/*.png
+
+data/test/*.jpg
+data/test/*.png
+data/test/*.mp4
