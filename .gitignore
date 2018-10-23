@@ -12,4 +12,8 @@ data/test/*.jpg
 data/test/*.png
 data/test/*.mp4
 
+data/result/*.jpg
+data/result/*.png
+data/result/*.mp4
+
 .vscode

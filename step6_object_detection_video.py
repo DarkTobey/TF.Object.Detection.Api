@@ -33,13 +33,14 @@ sys.path.append("..")
 # PATH_TO_CKPT = "D:/Tools/TensorFlow/pb/ssd_mobilenet_v1_coco_2018_01_28/frozen_inference_graph.pb"
 # PATH_TO_LABELS = "D:/Tools/TensorFlow/pb/ssd_mobilenet_v1_coco_2018_01_28/mscoco_label_map.pbtxt"
 
+
 # 模型文件位置和输出位置
 base_dir = "D:/Tools/Train/dnf"
 PATH_TO_CKPT = base_dir + "/output/result/frozen_inference_graph.pb"
 PATH_TO_LABELS = base_dir + "/config/label_map.pbtxt"
 
 test_video_path = base_dir + '/data/test/video.mp4'
-test_video_save_path = base_dir + '/data/test/video_save.mp4'
+test_video_save_path = base_dir + '/data/result/video_save.mp4'
 
 
 # 加载模型文件
@@ -59,7 +60,7 @@ categories = label_map_util.convert_label_map_to_categories(
 category_index = label_map_util.create_category_index(categories)
 
 
-# rgb图像 转 科学计算用的数组
+# rgb图像 转 科学计算用的数组 （现在只能转jpg格式图像，png图像太大了）
 def load_image_into_numpy_array(image):
     (im_width, im_height) = image.size
     return np.array(image.getdata()).reshape(
