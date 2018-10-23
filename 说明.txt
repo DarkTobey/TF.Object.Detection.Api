@@ -1,4 +1,19 @@
+搭建python环境 ，下载并配置 tensorflow 目标检测api
+https://blog.csdn.net/dy_guox/article/details/79081499
+
+
+解决 can't pickle dict_values objects" 报错问题
+If you're using python3 ,  model_lib.py 
+about line 414  add list() to category_index.values()  , such as list(category_index.values()). eval_util.get_eval_metric_ops_for_evalutors
+
 
 查看学习结果
 tensorboard --logdir=D:/Tools/Train/dnf/output
 http://localhost:6006
+
+python  step1_xml_to_csv.py
+python  step2_csv_to_tfrecord.py
+python  step3_train.py
+python  step4_export_inference_graph.py
+python  step5_object_detection_img.py
+python  step6_object_detection_video.py

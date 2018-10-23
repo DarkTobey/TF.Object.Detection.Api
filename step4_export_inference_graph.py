@@ -23,7 +23,7 @@ os.chdir(fullpath)
 
 base_dir = "D:/Tools/Train/dnf"
 pipeline_path = base_dir + '/config/ssd_mobilenet_v1_coco.config'
-out_train_ckpt_file = base_dir + '/output/model.ckpt-452'
+out_train_ckpt_file = base_dir + '/output/model.ckpt-194911'
 out_model_path = base_dir + '/output/result'
 
 

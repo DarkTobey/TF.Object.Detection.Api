@@ -27,23 +27,24 @@ from object_detection.utils import visualization_utils as vis_util
 fullpath = 'D:/Tools/TensorFlow/models/research/object_detection'
 os.chdir(fullpath)
 
-start = time.time()
 sys.path.append("..")
 
 
 # PATH_TO_CKPT = "D:/Tools/TensorFlow/pb/ssd_mobilenet_v1_coco_2018_01_28/frozen_inference_graph.pb"
 # PATH_TO_LABELS = "D:/Tools/TensorFlow/pb/ssd_mobilenet_v1_coco_2018_01_28/mscoco_label_map.pbtxt"
 
+
+# 模型文件位置和输出位置
 base_dir = "D:/Tools/Train/dnf"
 PATH_TO_CKPT = base_dir + "/output/result/frozen_inference_graph.pb"
 PATH_TO_LABELS = base_dir + "/config/label_map.pbtxt"
 
 test_image_path = base_dir + '/data/test'
-output_image_path = base_dir + '/data/test/result'
-output_csv_path = base_dir + '/data/test/result'
+output_image_path = base_dir + '/data/result'
+output_csv_path = base_dir + '/data/result'
 
 
-# Load a (frozen) Tensorflow model into memory.
+# 加载模型文件
 detection_graph = tf.Graph()
 with detection_graph.as_default():
     od_graph_def = tf.GraphDef()
@@ -53,29 +54,27 @@ with detection_graph.as_default():
         tf.import_graph_def(od_graph_def, name='')
 
 
-# Loading label map
+# 加载label
 label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
 categories = label_map_util.convert_label_map_to_categories(
     label_map, max_num_classes=99, use_display_name=True)
 category_index = label_map_util.create_category_index(categories)
 
 
-# Helper code
+# rgb图像 转 科学计算用的数组 （现在只能转jpg格式图像，png图像太大了）
 def load_image_into_numpy_array(image):
     (im_width, im_height) = image.size
     return np.array(image.getdata()).reshape(
         (im_height, im_width, 3)).astype(np.uint8)
 
 
-# Detection
-# For the sake of simplicity we will use only 2 images:
-# image1.jpg
-# image2.jpg
-# If you want to test the code with your images, just add path to the images to the TEST_IMAGE_PATHS.
-
+# 开始检测
+start = time.time()
 os.chdir(test_image_path)
+
 with detection_graph.as_default():
     with tf.Session(graph=detection_graph) as sess:
+        # 获取图的输出
         # Definite input and output Tensors for detection_graph
         image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
         # Each box represents a part of the image where a particular object was detected.
@@ -125,14 +124,14 @@ with detection_graph.as_default():
                 s_classes = classes[scores > 0.5]
                 s_scores = scores[scores > 0.5]
 
-                #保存位置坐标结果到 .csv表格
+                # 保存位置坐标结果到 .csv表格
                 for i in range(len(s_classes)):
                     newdata = pd.DataFrame(0, index=range(1), columns=range(7))
                     newdata.iloc[0, 0] = fileName
                     newdata.iloc[0, 1] = s_boxes[i][0]*height  # ymin
-                    newdata.iloc[0, 2] = s_boxes[i][1]*width  # xmin
+                    newdata.iloc[0, 2] = s_boxes[i][1]*width   # xmin
                     newdata.iloc[0, 3] = s_boxes[i][2]*height  # ymax
-                    newdata.iloc[0, 4] = s_boxes[i][3]*width  # xmax
+                    newdata.iloc[0, 4] = s_boxes[i][3]*width   # xmax
                     newdata.iloc[0, 5] = s_scores[i]
                     newdata.iloc[0, 6] = s_classes[i]
                     data = data.append(newdata)
