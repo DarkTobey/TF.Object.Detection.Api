@@ -124,7 +124,7 @@ with detection_graph.as_default():
                 s_classes = classes[scores > 0.5]
                 s_scores = scores[scores > 0.5]
 
-                #保存位置坐标结果到 .csv表格
+                # 保存位置坐标结果到 .csv表格
                 for i in range(len(s_classes)):
                     newdata = pd.DataFrame(0, index=range(1), columns=range(7))
                     newdata.iloc[0, 0] = fileName
@@ -135,12 +135,7 @@ with detection_graph.as_default():
                     newdata.iloc[0, 5] = s_scores[i]
                     newdata.iloc[0, 6] = s_classes[i]
                     data = data.append(newdata)
-
-                # 加上表头
-                column_name = ['filename', 'ymin',
-                               'xmin', 'ymax', 'xmax', 'scores', 'class_id']
-                pd.DataFrame(data, columns=column_name).to_csv(
-                    output_csv_path + '/' + 'result.csv', index=False)
+                data.to_csv(output_csv_path + '/' + 'result.csv', index=False)
 
 end = time.time()
 print("Execution Time: ", end - start)
