@@ -68,12 +68,13 @@ def load_image_into_numpy_array(image):
         (im_height, im_width, 3)).astype(np.uint8)
 
 
-# 开始检测
-start = time.time()
+# tf配置 并 开始检测
 os.chdir(test_image_path)
+tf_config = tf.ConfigProto()
+tf_config.gpu_options.allow_growth = True
 
 with detection_graph.as_default():
-    with tf.Session(graph=detection_graph) as sess:
+    with tf.Session(graph=detection_graph, config=tf_config) as sess:
         # 获取图的输出
         # Definite input and output Tensors for detection_graph
         image_tensor = detection_graph.get_tensor_by_name('image_tensor:0')
@@ -99,6 +100,8 @@ with detection_graph.as_default():
         for fileName in files:
             if(fileName[-3:] == 'jpg'):
                 # 读取图片并检测
+                start = time.time()
+
                 image = Image.open(fileName)
                 width, height = image.size
                 image_np = load_image_into_numpy_array(image)
@@ -107,6 +110,9 @@ with detection_graph.as_default():
                     [detection_boxes, detection_scores,
                         detection_classes, num_detections],
                     feed_dict={image_tensor: image_np_expanded})
+
+                end = time.time()
+                print(fileName + " cast time: ", end - start)
 
                 # 画上结果
                 vis_util.visualize_boxes_and_labels_on_image_array(
@@ -137,5 +143,4 @@ with detection_graph.as_default():
                     data = data.append(newdata)
                 data.to_csv(output_csv_path + '/' + 'result.csv', index=False)
 
-end = time.time()
-print("Execution Time: ", end - start)
+print("end")
