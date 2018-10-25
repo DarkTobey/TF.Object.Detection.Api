@@ -39,8 +39,8 @@ base_dir = "D:/Tools/Train/dnf"
 PATH_TO_CKPT = base_dir + "/output/result/frozen_inference_graph.pb"
 PATH_TO_LABELS = base_dir + "/config/label_map.pbtxt"
 
-test_video_path = base_dir + '/data/test/video.mp4'
-test_video_save_path = base_dir + '/data/result/video_save.mp4'
+test_video_path = base_dir + '/data/test.mp4'
+test_video_save_path = base_dir + '/data/result.mp4'
 
 
 # 加载模型文件

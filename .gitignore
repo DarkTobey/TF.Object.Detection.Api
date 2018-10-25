@@ -16,4 +16,6 @@ data/result/*.jpg
 data/result/*.png
 data/result/*.mp4
 
+data/*.mp4
+
 .vscode
